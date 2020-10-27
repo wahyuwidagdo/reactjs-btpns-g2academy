@@ -1,26 +1,48 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React,{ Component } from 'react';
+// import logo from './logo.svg';
+import { Nav, Body, Footer } from './templates';
+// import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { 
+      page: 'home',
+      statusLogin : false
+     }
+  }
+
+  shouldComponentUpdate(lastProp) {
+    if (lastProp.page !== this.state.page)
+      return true
+    return false
+  }
+
+  onClickButton = (page) => {
+    this.setState({
+      page
+    })
+  }
+
+  changeStatus = () => {
+    this.setState(oldState => ({ statusLogin : !oldState.statusLogin }))
+  }
+
+  render() { 
+    console.log(this.state.page)
+    return ( 
+      <div>
+        <Nav changePage={this.onClickButton} statusLogin={this.state.statusLogin} changeStatus={this.changeStatus} />
+        <Body 
+          page={this.state.page} 
+          changePage={this.onClickButton} 
+          changeStatus={this.changeStatus} 
+          statusLogin={this.state.statusLogin} 
+        />
+        <Footer />
+      </div>
+     );
+  }
 }
 
 export default App;

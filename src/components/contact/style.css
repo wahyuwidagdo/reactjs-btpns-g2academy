@@ -1,0 +1,41 @@
+.contact {
+    margin-top: 100px;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 20px;
+}
+
+li {
+    display: inline-block;
+    margin-right: .900em;
+}
+
+span {
+    position: absolute;
+    clip: rect(1px,1px,1px,1px);
+    -webkit-clip-path: inset(50%);
+    clip-path: inset(50%);
+    height: 1px;
+    width: 1px;
+    margin: -1px;
+    padding: 0;
+    border: 0;
+    overflow: hidden;
+    word-wrap: normal !important;
+}
+
+svg {
+    height: 1em;
+    width: 1em;
+    display: inline-block;
+    stroke: currentColor;
+    fill: none;
+    position: relative;
+    top: 2px;
+}
+*, ::after, ::before {
+    box-sizing: inherit;
+}

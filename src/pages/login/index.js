@@ -2,11 +2,15 @@ import React, { Component } from 'react';
 import './style.css'
 import RowInput from '../../components/rowInput';
 import { Redirect } from 'react-router-dom';
+import { connect } from 'react-redux'
 
 class Login extends Component {
     constructor(props) {
         super(props);
-        this.state = {  }
+        this.state = { 
+            username: "",
+            password: "",
+         }
     }
 
     onChangeInput = e => {
@@ -28,20 +32,36 @@ class Login extends Component {
         // this.setState(x => x = {})
 
         const { username, password } = this.state
+        console.log(username, " : ", password)
 
-        const admin = this.props.dataAdmin.find(admin => admin.username === username && admin.password === password)
-        if (admin) {
-            alert('Selamat Datang Admin Edo, apakah kamu siap untuk menjadi imam dari Ayana Jihye Moon')
-            this.props.changeStatus()
-        } else {
-            const exist = await this.props.users.find(user => user.username === username && user.password  === "123")
-            console.log(exist)
-            if (exist) {
-                alert('Terima kasih sudah mendukung Edo berjodoh dengan Ayana')
-                this.props.changeStatus()
+        // this.props.doLogin(username, password)
+
+        // const admin = this.props.dataAdmin.find(admin => admin.username === username && admin.password === password)
+        // if (admin) {
+        //     alert('Selamat Datang Admin Edo, apakah kamu siap untuk menjadi imam dari Ayana Jihye Moon')
+        //     this.props.changeStatus()
+        // } else {
+        //     const exist = await this.props.users.find(user => user.username === username && user.password  === "123")
+        //     console.log(exist)
+        //     if (exist) {
+        //         alert('Terima kasih sudah mendukung Edo berjodoh dengan Ayana')
+        //         this.props.changeStatus()
+        //     } else {
+        //         alert('Anda belum daftar atau username dan password salah')
+        //     }
+        // }
+        
+        if (username && password) {
+            let statusLogin = this.props.adminLogin.find(admin => (admin.username === username && admin.password === password))
+            if (statusLogin) {
+                alert('Selamat Datang Admin Edo, apakah kamu siap untuk menjadi imam dari Ayana Jihye Moon')
+                let type = statusLogin.type
+                this.props.doLogin({username, password, type}, this.props.adminLogin)
             } else {
-                alert('Anda belum daftar atau username dan password salah')
+                alert('Username atau Password salah!')
             }
+        } else {
+            alert('Username atau password tidak boleh kosong')
         }
     }
 
@@ -66,5 +86,14 @@ class Login extends Component {
          );
     }
 }
+
+const mapStateToProps = (state) => ({
+    statusLogin: state.auth.statusLogin,
+    adminLogin: state.auth.admin,
+})
+
+const mapDispatchToProps = (dispatch) => ({
+    doLogin: (adminLogin, dataLogin) => dispatch({ type: "LOGIN", payload: { adminLogin, dataLogin } })
+})
  
-export default Login;
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

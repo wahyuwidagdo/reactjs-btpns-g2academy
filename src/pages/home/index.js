@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import profile from '../../casualprofile.jpg'
 import './style.css'
+import { connect } from 'react-redux'
 
 class Home extends Component {
     constructor(props) {
@@ -49,5 +50,10 @@ class Home extends Component {
          );
     }
 }
- 
-export default Home;
+
+const mapStateToProps = (state) => ({
+    statusLogin: state.auth.statusLogin,
+    dataLogin: state.auth.dataLogin,
+})
+
+export default connect(mapStateToProps)(Home);

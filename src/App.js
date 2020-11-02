@@ -8,7 +8,7 @@ class App extends Component {
     super(props);
     this.state = { 
       page: 'home',
-      statusLogin : false
+      statusLogin : true
      }
   }
 
@@ -28,11 +28,23 @@ class App extends Component {
     this.setState(oldState => ({ statusLogin : !oldState.statusLogin }))
   }
 
+  doLogin = () => {
+    this.setState({ statusLogin : true })
+  }
+
+  doLogout = () => {
+    this.setState({ statusLogin : false })
+  }
+
   render() { 
     console.log(this.state.page)
     return ( 
       <div>
-        <Nav changePage={this.onClickButton} statusLogin={this.state.statusLogin} changeStatus={this.changeStatus} />
+        <Nav 
+          changePage={this.onClickButton} 
+          // statusLogin={this.state.statusLogin} 
+          // changeStatus={this.changeStatus} 
+        />
         <Body 
           page={this.state.page} 
           changePage={this.onClickButton} 

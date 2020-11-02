@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
 import { Menu } from '../../components';
+import { connect } from 'react-redux'
 import './style.css'
 
 class Nav extends Component {
@@ -9,11 +10,11 @@ class Nav extends Component {
         this.state = {  }
     }
 
-    shouldComponentUpdate(lastProp, nextProp) {
-        if (lastProp.statusLogin !== this.props.statusLogin)
-            return true
-        return false
-    }
+    // shouldComponentUpdate(lastProp, nextProp) {
+    //     if (lastProp.statusLogin !== this.props.statusLogin)
+    //         return true
+    //     return false
+    // }
     render() { 
         return ( 
             <div className="navbar">
@@ -28,7 +29,7 @@ class Nav extends Component {
                 </Link> */}
                 
                 {this.props.statusLogin ?
-                    <Menu text="Logout" goToPage={() => this.props.changeStatus(false)}>Logout</Menu>
+                    <Menu text="Logout" goToPage={this.props.doLogout} />
                     :
                     <>
                         <Link to="/login">
@@ -45,5 +46,14 @@ class Nav extends Component {
          );
     }
 }
+
+const mapStateToProps = (state) => ({
+    statusLogin: state.auth.statusLogin,
+    adminLogin: state.auth.admin,
+})
+
+const mapDispatchToProps = (dispatch) => ({
+    doLogout: (adminLogin) => dispatch({ type: "LOGOUT", payload: adminLogin })
+})
  
-export default Nav;
+export default connect(mapStateToProps, mapDispatchToProps)(Nav);

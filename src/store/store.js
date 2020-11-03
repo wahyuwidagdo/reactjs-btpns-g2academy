@@ -1,5 +1,7 @@
+import throttle from 'lodash.throttle';
 import AllReducers from "../reducers"
 import { createStore } from 'redux'
+
 
 const loadState = () => {
     try {
@@ -23,10 +25,14 @@ const saveState = (state) => {
 
 const persistedState = loadState();
 
-//Buat Store untuk Redux
 const store = createStore(
     AllReducers,
+    persistedState,
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-  )
+);
+
+store.subscribe(throttle(() => {
+    saveState(store.getState())
+  }, 1000));
 
 export default store

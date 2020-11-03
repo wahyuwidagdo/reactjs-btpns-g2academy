@@ -14,28 +14,28 @@ class UserList extends Component {
          }
     }
 
-    componentDidMount() {
-        if (this.props.statusLogin) {
-            fetch('https://jsonplaceholder.typicode.com/users')
-            .then(response => response.json())
-            .then(json => {
-                const dataUsers = json.map(user => ({
-                    ...user,
-                    password: "1234"
-                }))
+    // componentDidMount() {
+    //     if (this.props.statusLogin) {
+    //         fetch('https://jsonplaceholder.typicode.com/users')
+    //         .then(response => response.json())
+    //         .then(json => {
+    //             const dataUsers = json.map(user => ({
+    //                 ...user,
+    //                 password: "1234"
+    //             }))
 
-                console.info('dataUsers: ', dataUsers)
-                this.setState({
-                    users: [...dataUsers, ...this.state.admin]
-                })
+    //             console.info('dataUsers: ', dataUsers)
+    //             this.setState({
+    //                 users: [...dataUsers, ...this.state.admin]
+    //             })
 
-                const result = dataUsers.find(value => value.password === "1234")
-                const resultFilter = dataUsers.filter(value => value.password === "1234")
-                console.log("result : ", result)
-                console.log("resultFiler : ", resultFilter)
-            })
-        }
-    }
+    //             const result = dataUsers.find(value => value.password === "1234")
+    //             const resultFilter = dataUsers.filter(value => value.password === "1234")
+    //             console.log("result : ", result)
+    //             console.log("resultFiler : ", resultFilter)
+    //         })
+    //     }
+    // }
 
     clickBtn = () => {
         this.props.history.push('./login')
@@ -48,21 +48,31 @@ class UserList extends Component {
         return ( 
             <>
                 <h2>Daftar Users</h2>
-                {
-                    this.props.users.map((user, idx) => {
-                    return <tr key={idx}>
-                    {/* // <div key={idx}>Name : {user.name}</div> */}
-                    <th scope="row">{idx+1}</th>
-                    <td>{user.name}</td>
-                    <td>{user.email}</td>
-                        <>  
-                            <button className='btn btn sizefix'>Detail</button>
-                            <button className='btn btn-warning sizefix'> Edit</button>
-                            <button className='btn btn-danger sizefix'>Delete</button>
-                        </>
-                    </tr>
-                    })
-                }
+                <table>
+                    <thead>
+                        <th>No</th>
+                        <th>Username</th>
+                        <th>Email</th>
+                        <th>Action</th>
+                    </thead>
+                    <tbody>
+                    {
+                        this.props.users.map((user, idx) => {
+                        return <tr key={idx}>
+                        {/* // <div key={idx}>Name : {user.name}</div> */}
+                        <th scope="row">{idx+1}</th>
+                        <td>{user.username}</td>
+                        <td>{user.email}</td>
+                            <td>  
+                                <button className='btn btn sizefix'>Detail</button>
+                                <button className='btn btn-warning sizefix'> Edit</button>
+                                <button className='btn btn-danger sizefix'>Delete</button>
+                            </td>
+                        </tr>
+                        })
+                    }
+                    </tbody>
+                </table>
             </>
          );
     }

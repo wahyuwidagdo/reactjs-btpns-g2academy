@@ -32,7 +32,7 @@ class Login extends Component {
         // this.setState(x => x = {})
 
         const { username, password } = this.state
-        console.log(username, " : ", password)
+        // console.log(username, " : ", password)
 
         // this.props.doLogin(username, password)
 
@@ -53,6 +53,7 @@ class Login extends Component {
         
         if (username && password) {
             let statusLogin = this.props.adminLogin.find(admin => (admin.username === username && admin.password === password))
+            console.log(statusLogin)
             if (statusLogin) {
                 alert('Selamat Datang Admin Edo, apakah kamu siap untuk menjadi imam dari Ayana Jihye Moon')
                 let type = statusLogin.type

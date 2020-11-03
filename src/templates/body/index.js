@@ -17,16 +17,12 @@ class Body extends Component {
                     password : "admin",
                 }
             ],
-            users : [
-                {
-                    password : "123",
-                }
-            ],
+            users : [],
          }
     }
 
     componentDidMount() {
-        fetch('https://jsonplaceholder.typicode.com/users')
+        fetch('http://localhost:3030/users')
         .then(response => response.json())
         .then(json => this.setState({ users : json }))
     }

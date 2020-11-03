@@ -41,7 +41,6 @@ class Nav extends Component {
                     </>
                 }
 
-                {this.onLogin}
             </div>
          );
     }
@@ -53,7 +52,7 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-    doLogout: (adminLogin) => dispatch({ type: "LOGOUT", payload: adminLogin })
+    doLogout: () => dispatch({ type: "LOGOUT"})
 })
  
 export default connect(mapStateToProps, mapDispatchToProps)(Nav);

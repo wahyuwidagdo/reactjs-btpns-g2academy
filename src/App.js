@@ -42,6 +42,7 @@ class App extends Component {
       <div>
         <Nav 
           changePage={this.onClickButton} 
+          // doLogout={this.doLogout}
           // statusLogin={this.state.statusLogin} 
           // changeStatus={this.changeStatus} 
         />
